@@ -10,7 +10,7 @@ Solution: O(n log n) time
 		i=0. 
 		While placing element, we remove the old element at i+1 th position.
 		
-	References: take u forward youtube | https://www.youtube.com/watch?v=TocJOW6vx_I
+	
 	
  * */
 
