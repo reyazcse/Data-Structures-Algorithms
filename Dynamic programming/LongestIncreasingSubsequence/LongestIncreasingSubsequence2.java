@@ -38,6 +38,8 @@ public class LongestIncreasingSubsequence2 {
 		return sequence.size();
 		
 	}
+	//if we have 2 5 and we want to search for position to place 3, then it will return position of 2 here
+	//for target=2, it will return -1
 	private static int getFirstLessElementIndex(List<Integer> seq, int lo, int hi, int target) {
 		while(lo <= hi) {
 			int mid = lo + (hi-lo)/2;
