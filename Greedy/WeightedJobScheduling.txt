@@ -1,0 +1,2 @@
+Note that WeightedJobScheduling cannot be solved using greedy approach.
+we have to solve it using dp. See the folder for dynamic programming
