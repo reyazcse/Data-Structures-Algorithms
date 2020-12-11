@@ -12,7 +12,7 @@ Solution:
 	than or equal to height of existing node.
 	Traverse the tree in pre order.
 	
-	Complexity: O(n log n) time since tree map is used
+	Complexity: O(n log n) time since tree map is used and O(n) space for recursion
 	
 	
  * */
