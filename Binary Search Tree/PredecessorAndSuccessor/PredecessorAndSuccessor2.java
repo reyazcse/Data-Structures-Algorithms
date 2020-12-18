@@ -113,3 +113,5 @@ public class PredecessorAndSuccessor2 {
 	}
 
 }
+
+//Note: This method can also be used to find floor and ceil of BST.
