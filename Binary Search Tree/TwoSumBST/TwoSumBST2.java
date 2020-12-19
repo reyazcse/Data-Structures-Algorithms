@@ -8,6 +8,7 @@ Solution:
 	
 	Complexity:
 		O(n) time and for a balanced bst, below approach takes O(logn) time
+		Use iterative traversal (stack) to keep track of smallest and largest element, thus gives O(logN) space in average case.
 		
 References: https://www.geeksforgeeks.org/find-a-pair-with-given-sum-in-bst/
 
