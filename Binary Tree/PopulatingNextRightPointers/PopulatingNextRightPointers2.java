@@ -8,6 +8,7 @@ Solution:
 	Complexity: O(n) time and O(1) space
 	
 	For video explanation: https://www.youtube.com/watch?v=30Bqbk-Vk3Q
+	Note: this works for perfect binary tree only as given in the question	
 		
  * */
 package misc;
