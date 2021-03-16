@@ -76,3 +76,8 @@ public class NMeetings {
 	
 
 }
+/*
+NOte in the question it is not mentioned which meeting room to take if end times of both are same.
+If we take based on position i.e. first meeting will be taken when end times of both are same irrespective of start times, then
+we have to change the comparator function also. 
+ * */
