@@ -43,7 +43,7 @@ Solution:
 				So O(n^2) total time
 				
 	
-	
+	Above has been implemented in Method 1.
 
  * */
 package misc;
@@ -51,6 +51,10 @@ package misc;
 import java.util.Arrays;
 
 public class JobSequencingProblem {
+	
+	//Method 1: Here we take initial slot as Math.min(n-1, jobs[i].deadline-1); and we have
+	//created slots size as n which is no of jobs.
+	//This works good for case when we have for e.g n=2 jobs and their deadline is very big say 1000000.  We save space
 	int[] JobScheduling(Job jobs[], int n){
 		int [] result = new int[2];
 		int[] resultJob = new int[n];
@@ -74,6 +78,50 @@ public class JobSequencingProblem {
 					break;
 				}
 				slot--;									//find another slot if not free
+			}
+		}
+		return result;
+	}
+	
+	/*
+	 * Method 2: Here we create the array of length equal to max deadline.
+	 * This works well when we have many jobs but deadline is low. Say for eg 100000 jobs but all have deadlines of 1
+	 * References for code: https://www.youtube.com/watch?v=LjPx4wQaRIs&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma
+	 * 
+	 * */
+	
+	int[] JobScheduling2(Job jobs[], int n){
+		int [] result = new int[2];
+		
+		//sort in desc order of profits
+		Arrays.sort(jobs, (job1, job2) -> {
+			return job2.profit - job1.profit;
+		});
+		
+		int maxDeadline = 0;
+		for(int i=0; i<jobs.length; i++) {
+			if(jobs[i].deadline > maxDeadline) {
+				maxDeadline = jobs[i].deadline;
+			}
+		}
+		
+		int[] slots = new int[maxDeadline + 1];			//we use 1 based: job with deadline 4 can be placed in 1,2,3 or 4 th slot
+		
+		for(int i=1; i<=maxDeadline; i++) {				//init
+			slots[i] = -1;
+		}
+		
+		
+		//select a job
+		for(int i=0; i<jobs.length; i++) {
+			
+			for(int j = jobs[i].deadline; j > 0; j--) {
+				if(slots[j] == -1) {					//free slot
+					slots[j] = i;							//put job in slot
+					result[0] ++;						//increment count of jobs
+					result[1] += jobs[i].profit;		//increment total profit so far
+					break;
+				}
 			}
 		}
 		return result;
