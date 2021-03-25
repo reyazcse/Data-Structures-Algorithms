@@ -6,7 +6,7 @@
 		[[7,10], [2,4]]
 	Output:
 		1
-Solution:
+Solution 1:
 	We sort the intervals by their start time.
 	We also use min heap which stores the end times of the intervals which has been accessed so far
 	When we are at an interval, we check if the start time of current interval is >= root of minHeap(minimum end point)
@@ -15,6 +15,24 @@ Solution:
 
 Complexity: O(NlogN) time where N is size of intervals
 			O(N) space
+Method 1 implements this
+
+
+Solution 2:
+	We can do without priority queue also.
+	Take the start and end times in separate arrays.
+	Sort them
+	Start two pointers from the arrays beginning.
+	If we find that start time is less than end time, we increase meeting room and move start pointer
+	else we decrease meeting room (since current meeting can be placed in the same room), and move end pointer
+	Continue till one of the list is exhausted
+	
+	Here time complextiy is same as Method 1, but space complexity is constant if we are given start and end times 
+	arrays separately.
+	
+	NOTE: We cannot use the Interval[] and keep two pointers. We have to separate the arrays into two.
+	See Method 2 for implementation
+	
 	
  * */
 package leetcode;
@@ -42,8 +60,73 @@ public class MeetingRoomsII {
 			}
 			minHeap.add(intervals[i].end);
 		}
+
 		return rooms;
 	}
+	
+	
+	//Method 2 : Without priority queue (no extra space)
+	
+	public int minMeetingRooms2(Interval[] intervals) {
+		if(intervals == null || intervals.length == 0)
+			return 0;
+		int current_rooms=0;							//number of rooms currently needed
+		int ans = 0;									//final answer
+		int n = intervals.length;
+		int[] start = new int[n];
+		int[] end = new int[n];
+		//sort using start times
+		Arrays.sort(start);
+		Arrays.sort(end);
+		
+		int i = 0, j = 0;											//pointers for start and end times respectively
+		
+		while(i < n && j < n) {
+			if(start[i] < end[j]) {
+				current_rooms++;					// need extra room
+				i++;
+			}else {
+				current_rooms--;					//no need of extra room
+				j++;
+			}
+			ans = Math.max(ans, current_rooms);
+		}
+
+		return ans;
+	}
+	
+	
+	
+	//Below will NOT WORK!! We have to separate the intervals.
+	
+	/*
+	public int minMeetingRooms2(Interval[] intervals) {
+		if(intervals == null || intervals.length == 0)
+			return 0;
+		int current_rooms=0;							//number of rooms currently needed
+		int ans = 0;									//final answer
+		
+		//sort using start times
+		Arrays.sort(intervals, (int1,int2) -> int1.start-int2.start);			//sort on start times
+		
+		int i = 0, j = 0;											//pointers for start and end times respectively
+		
+		while(i < intervals.length && j < intervals.length) {
+			if(intervals[i].start < intervals[j].end) {
+				current_rooms++;
+				i++;
+			}else {
+				current_rooms--;
+				j++;
+			}
+			ans = Math.max(ans, current_rooms);
+		}
+
+		return ans;
+	}
+	
+	*/
+	
 	public static void main(String[] args) {
 		Interval [] intervals = new Interval[4];
 		intervals[0] = new Interval(0,30);
