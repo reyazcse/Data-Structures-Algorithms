@@ -52,25 +52,25 @@ public class CloneGraph {
 		}
 		
 		Queue<Node> q = new LinkedList<>();
-		HashMap<Node, Node> clonedMap = new HashMap<>();
+		HashMap<Node, Node> orgToCloneMap = new HashMap<>();			// reference to node visited and copied
 		
 		q.add(node);
 		Node clonedRoot = new Node(node.val);
-		clonedMap.put(node, clonedRoot);
+		orgToCloneMap.put(node, clonedRoot);
 		
 		while(!q.isEmpty()) {
 			Node curr = q.poll();
 			
-			Node clonedCurr = clonedMap.get(curr);
+			Node clonedCurr = orgToCloneMap.get(curr);
 			
-			for(Node v : curr.neighbors) {
-				Node clonedV = clonedMap.get(v);
-				if(clonedV == null) {
-					clonedV = new Node(v.val);
-					clonedMap.put(v, clonedV);
-					q.add(v);
+			for(Node neigh : curr.neighbors) {
+				Node cloneNeigh = orgToCloneMap.get(neigh);
+				if(cloneNeigh == null) {
+					cloneNeigh = new Node(neigh.val);
+					orgToCloneMap.put(neigh, cloneNeigh);
+					q.add(neigh);								//do bfs over the neighbor
 				}
-				clonedCurr.neighbors.add(clonedV);
+				clonedCurr.neighbors.add(cloneNeigh);
 				
 			}
 			
